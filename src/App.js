@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import { Suspense } from "react";
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
+import styled from "styled-components";
+import { Model } from './M4.js';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper className="Wrapper">
+      <Canvas style={{ background: '#171717' }}>
+          <OrbitControls />
+          <ambientLight intensity={0.5}/>
+          <directionalLight position={[-2,5,2]} intensity={1} />
+          <Suspense fallback={null}>
+            <Model/>
+          </Suspense>
+      </Canvas>
+    </Wrapper>
   );
 }
 
+const Wrapper = styled.div`
+postions: relative;
+background: #333;
+canvas {
+  width: 100vw;
+  height: 100vh;
+}
+`
 export default App;
